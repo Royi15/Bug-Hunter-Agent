@@ -1,4 +1,4 @@
-# Bug Hunter Agent
+# 🐛 Bug Hunter Agent 
 
 An AI-powered CLI tool that automatically generates unit tests for your source code, executes them, and — when tests fail — produces a detailed bug report, attempts an AI-generated fix, and verifies the fix by re-running the same tests. The cycle repeats until the tests pass or you choose to stop.
 
@@ -13,7 +13,7 @@ Powered by **Gemini 3.1 Flash Lite** via the free Google AI Studio API.
 
 ---
 
-## How It Works
+## 🚀 How It Works
 
 The agent runs your source file through a six-stage pipeline:
 
@@ -95,7 +95,7 @@ The agent runs your source file through a six-stage pipeline:
 
 ---
 
-## Requirements
+## 🛠️ Requirements
 
 - Python 3.9+
 - A free **Gemini API key** (see below)
@@ -122,7 +122,7 @@ If you see a version number, the hooks will work. If the command is not found, i
 
 ---
 
-## Installation
+## ⚙️ Installation
 
 ### 1. Get a free Gemini API key
 
@@ -216,7 +216,7 @@ python bug_hunter.py lib/parser.ts
 
 ---
 
-## Docker Support
+## 🐳 Docker Support
 
 Every time you run the agent you are asked whether to execute the generated tests locally or inside an isolated Docker container. The decision is made automatically based on what is installed on your machine.
 
@@ -312,7 +312,7 @@ Files with unsupported extensions are rejected immediately before any API call i
 
 ---
 
-## Developer Hooks
+## 🪝 Developer Hooks
 
 This project ships with a complete hooks system that runs automatically during every development session. Hooks enforce safety rules, track activity, and clean up after every edit — without you having to think about it.
 
@@ -502,7 +502,7 @@ echo '{"tool_name":"Edit","tool_input":{"file_path":"bug_hunter.py"},"session_id
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 ```
 Bug-Hunter-Agent/
@@ -535,7 +535,7 @@ Bug-Hunter-Agent/
 
 ---
 
-## Common Errors
+## ❌ Common Errors
 
 | Error | Cause | Fix |
 |-------|-------|-----|
