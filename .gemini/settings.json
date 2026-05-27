@@ -1,0 +1,71 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/pre_command_firewall.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/pre_rate_limiter.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/pre_commit_validator.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/pre_secrets_guard.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/post_auto_backup.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/post_syntax_checker.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/post_auto_backup.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/post_syntax_checker.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/post_session_summary.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+# Hook Runner configuration — used by hook_runner.sh for local testing
+# Format: EventType:ToolMatcher:./script_path.sh
+# ─────────────────────────────────────────────────────────────────────
+
+# Pre-tool hooks
+PreToolUse:Bash:./pre_command_firewall.sh
+PreToolUse:Bash:./pre_rate_limiter.sh
+PreToolUse:Bash:./pre_commit_validator.sh
+PreToolUse:Read:./pre_secrets_guard.sh
+
+# Post-tool hooks (Edit and Write both trigger backup + syntax check)
+PostToolUse:Edit:./post_auto_backup.sh
+PostToolUse:Edit:./post_syntax_checker.sh
+PostToolUse:Write:./post_auto_backup.sh
+PostToolUse:Write:./post_syntax_checker.sh
+
+# Session summary when Claude stops
+Stop:*:./post_session_summary.sh

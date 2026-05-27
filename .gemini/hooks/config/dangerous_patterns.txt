@@ -1,0 +1,30 @@
+# Dangerous command patterns (POSIX extended regex)
+# One pattern per line. Lines starting with # are comments.
+
+# Recursive force-delete of root or home
+rm\s+-rf\s+/
+rm\s+-rf\s+~
+rm\s+-rf\s+\*
+
+# Disk-level destructive writes
+dd\s+if=
+>\s*/dev/sd[a-z]
+>\s*/dev/nvme
+
+# Filesystem formatting
+mkfs
+
+# Fork bomb
+:\(\)\s*\{.*:\|:.*\}
+
+# Piping remote scripts directly to shell
+curl.*\|\s*(ba)?sh
+wget.*\|\s*(ba)?sh
+fetch.*\|\s*(ba)?sh
+
+# Overwriting system files
+chmod\s+-R\s+777\s+/
+chown\s+-R.*\s+/
+
+# Dropping all iptables rules
+iptables\s+-F
