@@ -312,9 +312,9 @@ Files with unsupported extensions are rejected immediately before any API call i
 
 ---
 
-## Claude Code Hooks
+## Developer Hooks
 
-This project ships with a complete hooks system that runs automatically inside every Claude Code session. Hooks enforce safety rules, track activity, and clean up after every edit — without you having to think about it.
+This project ships with a complete hooks system that runs automatically during every development session. Hooks enforce safety rules, track activity, and clean up after every edit — without you having to think about it.
 
 All hooks live in `.gemini/hooks/`. They are registered in `.gemini/settings.json` and fire automatically.
 
@@ -325,7 +325,7 @@ All hooks live in `.gemini/hooks/`. They are registered in `.gemini/settings.jso
 | `pre_command_firewall.sh` | PreToolUse | Bash | Blocks commands matching dangerous regex patterns |
 | `pre_rate_limiter.sh` | PreToolUse | Bash | Counts commands per session; warns then blocks when limit is reached |
 | `pre_commit_validator.sh` | PreToolUse | Bash | Enforces conventional commit message format |
-| `pre_secrets_guard.sh` | PreToolUse | Read | Blocks Claude from reading files listed in `secret_files.txt` |
+| `pre_secrets_guard.sh` | PreToolUse | Read | Blocks the AI assistant from reading files listed in `secret_files.txt` |
 | `post_auto_backup.sh` | PostToolUse | Edit / Write | Creates a timestamped backup of every edited file |
 | `post_syntax_checker.sh` | PostToolUse | Edit / Write | Runs a syntax checker (bash/python/gcc) on the saved file |
 | `post_session_summary.sh` | Stop | — | Prints a formatted activity report when the session ends |
@@ -334,7 +334,7 @@ All hooks live in `.gemini/hooks/`. They are registered in `.gemini/settings.jso
 
 #### `pre_command_firewall.sh`
 
-Reads regex patterns from `config/dangerous_patterns.txt` and blocks any Bash command that matches. If a command is blocked, Claude receives an error message explaining which pattern matched and is asked to use a safer alternative.
+Reads regex patterns from `config/dangerous_patterns.txt` and blocks any Bash command that matches. If a command is blocked, the AI assistant receives an error message explaining which pattern matched and is asked to use a safer alternative.
 
 **To add a blocked pattern**, open `config/dangerous_patterns.txt` and add a line:
 ```
@@ -369,7 +369,7 @@ If no prefix is found, the hook analyses the staged diff and suggests one:
 
 #### `pre_secrets_guard.sh`
 
-Blocks Claude from reading any file listed in `config/secret_files.txt`. Matching is suffix-based and case-insensitive, so `.env` blocks `project/.env`, `C:\Users\..\.env`, etc.
+Blocks the AI assistant from reading any file listed in `config/secret_files.txt`. Matching is suffix-based and case-insensitive, so `.env` blocks `project/.env`, `C:\Users\..\.env`, etc.
 
 **To protect additional files**, add entries to `config/secret_files.txt`:
 ```
@@ -399,7 +399,7 @@ Syntax errors are reported as warnings (exit 1) — they do not block the sessio
 
 #### `post_session_summary.sh`
 
-When the Claude Code session ends, reads `data/session_<id>.log` and prints a formatted summary:
+When the development session ends, reads `data/session_<id>.log` and prints a formatted summary:
 
 ```
 ════════════════════════════════════════
@@ -471,7 +471,7 @@ chore
 
 ### `secret_files.txt`
 
-One filename suffix per line (case-insensitive). Claude cannot read any file whose path ends with a listed entry.
+One filename suffix per line (case-insensitive). The AI assistant cannot read any file whose path ends with a listed entry.
 
 ```
 .env
@@ -511,7 +511,7 @@ Bug-Hunter-Agent/
 ├── .env                       Your API key (never committed)
 ├── .gitignore
 └── .gemini/
-    ├── settings.json          Registers hooks with Claude Code
+    ├── settings.json          Registers hooks with the AI assistant
     └── hooks/
         ├── pre_command_firewall.sh
         ├── pre_rate_limiter.sh
