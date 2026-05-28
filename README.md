@@ -138,7 +138,7 @@ pip install -r requirements.txt
 
 ### 3. Add your API key
 
-Open `.env` and replace the placeholder:
+Open a `.env` file in the main root file and type:
 
 ```env
 GEMINI_API_KEY=your_actual_key_here
