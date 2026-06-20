@@ -314,9 +314,9 @@ Files with unsupported extensions are rejected immediately before any API call i
 
 ## 🪝 Developer Hooks
 
-This project ships with a complete hooks system that runs automatically during every development session. Hooks enforce safety rules, track activity, and clean up after every edit — without you having to think about it.
+This project ships with a complete hooks system for anyone who wants to work on the codebase using **Claude Code**. The hooks have nothing to do with running `bug_hunter.py` — they protect the development environment itself. Every time Claude Code edits a file, runs a command, or ends a session, the hooks intercept those actions automatically to enforce safety rules, prevent destructive operations, back up your files, and summarise activity.
 
-All hooks live in `.gemini/hooks/`. They are registered in `.gemini/settings.json` and fire automatically.
+All hooks live in `.claude/hooks/`. They are registered in `.claude/settings.json` and fire automatically whenever you work on this project with Claude Code.
 
 ### Hook Overview
 
@@ -348,7 +348,7 @@ Tracks the total number of Bash commands run in the current session using `data/
 
 **To reset the counter mid-session**, create the file `data/.reset_commands` (the hook deletes it automatically on next run):
 ```bash
-touch .gemini/hooks/data/.reset_commands
+touch .claude/hooks/data/.reset_commands
 ```
 
 #### `pre_commit_validator.sh`
@@ -428,7 +428,7 @@ Period:  2025-05-27 14:00:00 -> 2025-05-27 14:42:17
 
 ## Hook Configuration Reference
 
-All configuration files are in `.gemini/hooks/config/`.
+All configuration files are in `.claude/hooks/config/`.
 
 ### `hooks.conf`
 
@@ -489,15 +489,15 @@ Use `hook_runner.sh` to simulate any hook chain without needing a live session:
 ```bash
 # Test the command firewall — should block
 echo '{"tool_name":"Bash","tool_input":{"command":"rm -rf /"},"session_id":"test"}' \
-  | bash .gemini/hooks/hook_runner.sh PreToolUse Bash
+  | bash .claude/hooks/hook_runner.sh PreToolUse Bash
 
 # Test a safe command — should pass
 echo '{"tool_name":"Bash","tool_input":{"command":"ls -la"},"session_id":"test"}' \
-  | bash .gemini/hooks/hook_runner.sh PreToolUse Bash
+  | bash .claude/hooks/hook_runner.sh PreToolUse Bash
 
 # Test the backup + syntax check chain after an edit
 echo '{"tool_name":"Edit","tool_input":{"file_path":"bug_hunter.py"},"session_id":"test"}' \
-  | bash .gemini/hooks/hook_runner.sh PostToolUse Edit
+  | bash .claude/hooks/hook_runner.sh PostToolUse Edit
 ```
 
 ---
@@ -510,8 +510,8 @@ Bug-Hunter-Agent/
 ├── requirements.txt
 ├── .env                       Your API key (never committed)
 ├── .gitignore
-└── .gemini/
-    ├── settings.json          Registers hooks with the AI assistant
+└── .claude/
+    ├── settings.json          Registers hooks with Claude Code
     └── hooks/
         ├── pre_command_firewall.sh
         ├── pre_rate_limiter.sh
