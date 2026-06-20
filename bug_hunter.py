@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# test hook
 
 import os
 import sys
@@ -168,7 +169,7 @@ TEST_GEN_SCHEMA = {
         "test_code":        {"type": "string"},
         "test_cases":       {"type": "array", "items": {"type": "string"}},
     },
-    "required": ["is_valid_code", "test_cases"],
+    "required": ["is_valid_code", "test_cases", "test_code"],
 }
 
 
